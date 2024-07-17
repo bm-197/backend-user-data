@@ -2,16 +2,15 @@
 """ The user model's module.
 """
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declartive_base
+from sqlalchemy.ext.declarative import declarative_base
 
 
-Base = declartive_base()
-
+Base = declarative_base()
 
 class User(Base):
     """ Represents a record from `user` table
     """
-    __tabelename__ = "user"
+    __tablename__ = "user"
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
     hashed_password = Column(String(250), nullable=True)
