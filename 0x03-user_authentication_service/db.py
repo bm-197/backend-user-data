@@ -60,3 +60,20 @@ class DB:
         if result is None:
             raise NoResultFound()
         return result
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Updates a user based on a given id.
+        """
+        user = self.find_user_by(id=user_id)
+        if user is None:
+            return
+        update_source = {}
+        for key, value in kwargs.items():
+            column = getattr(User, key, None)
+            if column is not None:
+                update_source[column.name] = value
+            else:
+                raise ValueError()
+        self._session.query(User).filter(User.id == user_id).update(
+            update_source)
+        
